@@ -6,7 +6,7 @@
  *
  * https://github.com/KhaosKreations/js-utilities
  *
- * Version: 0.0.1
+ * Version: 0.0.4
  */
 jQuery.fn.extend({
 	domNodeInserted: function(elementSelector, callback) {
