@@ -23,7 +23,7 @@ $(element).htmlvalidator();
 
 // use domListener to apply to a dynamicaly loaded element
 $('body').domNodeInserted(selector, function(element) {
-	if (!$(element).hasClass('html-validator')) {
+	if (!$(element).hasClass('kk-html-validator')) {
 		$(element).htmlvalidator();
 	}
 });
