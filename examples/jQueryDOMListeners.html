@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+	<title>jQuery DOM Listeners</title>
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+	<script src="../jquery.domListeners.js"></script>
+	<script>
+	function addNew() {
+		$('#test').append("<span class='new'>New Element</span>");
+	}
+	function addNewWithChildren() {
+		$('#test').append("<div class='new'><span class='new'>New Element</span></div>");
+	}
+	$(document).ready(function(){
+		$('#test').domNodeInserted('.new', function(el) { 
+			console.log('Node Inserted: ',$(el)); 
+		});
+		
+		setTimeout(addNew, 3000);
+		setTimeout(addNewWithChildren, 6000);
+		setTimeout(addNew, 9000);
+		setTimeout(addNewWithChildren, 12000);
+		setTimeout(addNew, 15000);
+	});
+	</script>
+</head>
+<body>
+	<div id='test'></div>
+</body>
+</html>
