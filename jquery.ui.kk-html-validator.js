@@ -21,9 +21,9 @@ $.widget( "khaoskreations.htmlvalidator", {
 		this.refresh();
 		
 		var that = this;
-		this.element.on('keyup change click', function(e) {
+		this.element.on('keyup change click', this._throttle(function(e) {
 			that.refresh();
-		});
+		}, 100));
 	},
 	_setOption: function( key, value ) {
 		this._super( key, value );
@@ -34,6 +34,37 @@ $.widget( "khaoskreations.htmlvalidator", {
 	_destroy: function() {
 		this.element.removeClass( "kk-html-validator" );
 		this.options.messageObj.remove();
+	},
+	_throttle: function(func, wait, options) {
+		var context, args, result;
+		var timeout = null;
+		var previous = 0;
+		if (!options) options = {};
+		var later = function() {
+			previous = options.leading === false ? 0 : Date.now();
+			timeout = null;
+			result = func.apply(context, args);
+			if (!timeout) context = args = null;
+		};
+		return function() {
+			var now = Date.now();
+			if (!previous && options.leading === false) previous = now;
+			var remaining = wait - (now - previous);
+			context = this;
+			args = arguments;
+			if (remaining <= 0 || remaining > wait) {
+				if (timeout) {
+					clearTimeout(timeout);
+					timeout = null;
+				}
+				previous = now;
+				result = func.apply(context, args);
+				if (!timeout) context = args = null;
+			} else if (!timeout && options.trailing !== false) {
+				timeout = setTimeout(later, remaining);
+			}
+			return result;
+		};
 	},
 	_diff: function(arr1, arr2) {
 		var arr = arr1.slice(); //duplicate array
