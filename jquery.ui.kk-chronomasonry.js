@@ -12,7 +12,10 @@
 (function ( $ ) {
 	$.widget( "khaoskreations.chronomasonry", {
 		options: {
+			minColumns: 1,
+			maxColumns: 12,
 			minColumnWidth: 300,
+			setColumns: null,
 			panelClass: 'kk-masonry-panel',
 			columnClass: 'kk-masonry-column',
 			throttleFn: null,
@@ -23,7 +26,7 @@
 			
 			this.panels = this.element.children('.'+this.options.panelClass).get();
 			
-			this.cols = 1;
+			this.cols = 0;
 			this._getColumns();
 			
 			var that = this;
@@ -56,7 +59,12 @@
 			return shortestIndex;
 		},
 		_getColumns: function() {
-			var cols = Math.min(12, Math.max(1,Math.floor(this.element.width()/this.options.minColumnWidth)));
+			var cols = 1;
+			if (Number.isInteger(this.options.setColumns)) {
+				cols = this.options.setColumns;
+			} else {
+				cols = Math.min(this.options.maxColumns, Math.max(this.options.minColumns,Math.floor(this.element.width()/this.options.minColumnWidth)));
+			}
 			if (this.cols != cols) {
 				this.element.children('.'+this.options.columnClass).addClass('kk-masonry-expired').removeClass(this.options.columnClass);
 				this.cols = cols;
@@ -76,6 +84,8 @@
 				$(this.panels[i]).detach().appendTo($(this.columns[col]));
 			}
 		},
+		/* Use minimumWidth for items that require a minimum width to be displayed. e.g. an ad unit that must be in a column at least 300px wide
+		*/
 		add: function(obj, position, minimumWidth) {
 			var col = this._getShortestColumn();
 			var column = $(this.columns[col]);
