@@ -1,0 +1,58 @@
+.kk-masonry * {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.kk-masonry {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+.kk-masonry-column {
+	width: 100%;
+}
+.kk-masonry-column + .kk-masonry-column { margin-left: 10px; }
+.kk-masonry-expired { display: none; }
+.kk-masonry-panel {
+	overflow: hidden;
+	width: 100%;
+}
+
+.kk-masonry[data-cols="1"] .kk-masonry-column {
+	width: 100%;
+}
+.kk-masonry[data-cols="2"] .kk-masonry-column {
+	width: 50%;
+}
+.kk-masonry[data-cols="3"] .kk-masonry-column {
+	width: 33.3333%;
+}
+.kk-masonry[data-cols="4"] .kk-masonry-column {
+	width: 25%;
+}
+.kk-masonry[data-cols="5"] .kk-masonry-column {
+	width: 20%;
+}
+.kk-masonry[data-cols="6"] .kk-masonry-column {
+	width: 16.6666%;
+}
+.kk-masonry[data-cols="7"] .kk-masonry-column {
+	width: 14.2857%;
+}
+.kk-masonry[data-cols="8"] .kk-masonry-column {
+	width: 12.5%;
+}
+.kk-masonry[data-cols="9"] .kk-masonry-column {
+	width: 11.1111%;
+}
+.kk-masonry[data-cols="10"] .kk-masonry-column {
+	width: 10%;
+}
+.kk-masonry[data-cols="11"] .kk-masonry-column {
+	width: 9.0909%;
+}
+.kk-masonry[data-cols="12"] .kk-masonry-column {
+	width: 8.3333%;
+}
