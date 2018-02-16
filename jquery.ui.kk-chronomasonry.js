@@ -19,7 +19,8 @@
 			panelClass: 'kk-masonry-panel',
 			columnClass: 'kk-masonry-column',
 			throttleFn: null,
-			throttleAmount: 100
+			throttleAmount: 100,
+			fadeIn: false
 		},
 		_create: function() {
 			this.element.addClass('kk-masonry');
@@ -28,6 +29,10 @@
 			
 			this.cols = 0;
 			this._getColumns();
+			
+			if (this.options.fadeIn) {
+				this.element.animate({opacity: 1});
+			}
 			
 			var that = this;
 			
@@ -50,11 +55,13 @@
 			var shortestHeight = -1;
 			for (var i=0; i<this.columns.length; i++) {
 				var colHeight = $(this.columns[i]).height();
+				console.log('height-'+i, colHeight);
 				if (shortestHeight == -1 || colHeight < shortestHeight) {
 					shortestHeight = colHeight;
 					shortestIndex = i;
 				}
 			}
+			console.log('shortestIndex', shortestIndex);
 			
 			return shortestIndex;
 		},
@@ -78,6 +85,10 @@
 				this.element.children('.kk-masonry-expired').remove();
 			}
 		},
+		empty: function() {
+			this.element.find('.'+this.options.panelClass).remove();
+			this.panels = [];
+		}, 
 		redraw: function() {
 			for (var i=0; i< this.panels.length; i++) {
 				var col = this._getShortestColumn();
