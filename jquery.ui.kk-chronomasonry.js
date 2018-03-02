@@ -55,13 +55,11 @@
 			var shortestHeight = -1;
 			for (var i=0; i<this.columns.length; i++) {
 				var colHeight = $(this.columns[i]).height();
-				console.log('height-'+i, colHeight);
 				if (shortestHeight == -1 || colHeight < shortestHeight) {
 					shortestHeight = colHeight;
 					shortestIndex = i;
 				}
 			}
-			console.log('shortestIndex', shortestIndex);
 			
 			return shortestIndex;
 		},
